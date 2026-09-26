@@ -2,150 +2,156 @@
 layout: default
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/style.scss' | relative_url }}">
+{% assign featured = site.posts.first %}
 
-<header class="topbar">
-  <a href="{{ '/' | relative_url }}" class="logo">
-    {{ site.title }}
-  </a>
+<main class="home">
 
-  <div class="top-actions">
-    <button id="theme-toggle" aria-label="다크모드">☾</button>
-    <button aria-label="메뉴">☰</button>
-  </div>
-</header>
+  <section class="latest">
 
-<main>
+    <div class="section-label">
+      최신 아티클
+    </div>
 
-  <section class="hero">
-    <h1>최신 아티클</h1>
-  </section>
+    {% if featured.categories %}
+      <div class="featured-category">
+        {{ featured.categories | first }}
+      </div>
+    {% endif %}
 
-  <nav class="categories">
-    <button class="category active" data-category="all">전체</button>
+    <div class="featured">
 
-    {% for category in site.categories %}
-      <button
-        class="category"
-        data-category="{{ category[0] }}"
-      >
-        {{ category[0] }}
-      </button>
-    {% endfor %}
-  </nav>
+      <div class="featured-content">
 
-  <section class="articles">
-
-    {% for post in site.posts %}
-
-      {% assign words = post.content | number_of_words %}
-      {% assign minutes = words | divided_by: 200 %}
-      {% if minutes < 1 %}
-        {% assign minutes = 1 %}
-      {% endif %}
-
-      <article
-        class="article-card"
-        data-category="{% for category in post.categories %}{{ category }} {% endfor %}"
-      >
-
-        {% if post.thumbnail %}
-          <a href="{{ post.url | relative_url }}" class="cover">
-            <img
-              src="{{ post.thumbnail | relative_url }}"
-              alt="{{ post.title }}"
-            >
+        <h1>
+          <a href="{{ featured.url | relative_url }}">
+            {{ featured.title }}
           </a>
+        </h1>
+
+        {% if featured.description %}
+          <p class="featured-description">
+            {{ featured.description }}
+          </p>
+        {% else %}
+          <p class="featured-description">
+            {{ featured.excerpt | strip_html | strip_newlines | truncate: 180 }}
+          </p>
         {% endif %}
 
-        <div class="article-info">
+        {% assign words = featured.content | number_of_words %}
+        {% assign minutes = words | divided_by: 200 %}
+        {% if minutes < 1 %}
+          {% assign minutes = 1 %}
+        {% endif %}
 
-          {% if post.categories %}
-            <span class="article-category">
-              {{ post.categories | first }}
-            </span>
-          {% endif %}
-
-          <h2>
-            <a href="{{ post.url | relative_url }}">
-              {{ post.title }}
-            </a>
-          </h2>
-
-          {% if post.description %}
-            <p>{{ post.description }}</p>
-          {% else %}
-            <p>
-              {{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}
-            </p>
-          {% endif %}
-
-          <div class="meta">
-            <span>{{ site.author | default: "주현" }}</span>
-            <span>•</span>
-            <span>{{ post.date | date: "%Y년 %-m월 %-d일" }}</span>
-            <span>•</span>
-            <span>{{ minutes }}분 소요</span>
-          </div>
-
+        <div class="featured-meta">
+          <span>{{ site.author | default: "주현" }}</span>
+          <span>{{ featured.date | date: "%Y년 %-m월 %-d일" }}</span>
+          <span>{{ minutes }}분 소요</span>
         </div>
 
-      </article>
+        <a
+          href="{{ featured.url | relative_url }}"
+          class="read-more"
+        >
+          읽어보기 →
+        </a>
 
-    {% endfor %}
+      </div>
+
+      {% if featured.thumbnail %}
+        <a
+          href="{{ featured.url | relative_url }}"
+          class="featured-image"
+        >
+          <img
+            src="{{ featured.thumbnail | relative_url }}"
+            alt="{{ featured.title }}"
+          >
+        </a>
+      {% endif %}
+
+    </div>
+
+    <div class="article-navigation">
+
+      {% if site.posts.size > 1 %}
+        <a href="{{ site.posts[1].url | relative_url }}">
+          ← 이전 아티클
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+
+      <span class="article-count">
+        01 / {{ site.posts.size | prepend: "0" }}
+      </span>
+
+      {% if site.posts.size > 1 %}
+        <a href="{{ site.posts[1].url | relative_url }}">
+          다음 아티클 →
+        </a>
+      {% endif %}
+
+    </div>
+
+  </section>
+
+
+  <section class="all-posts">
+
+    <div class="section-label">
+      모든 아티클
+    </div>
+
+    <div class="post-list">
+
+      {% for post in site.posts %}
+
+        <a
+          href="{{ post.url | relative_url }}"
+          class="post-row"
+        >
+
+          {% if post.thumbnail %}
+            <div class="post-row-image">
+              <img
+                src="{{ post.thumbnail | relative_url }}"
+                alt=""
+              >
+            </div>
+          {% endif %}
+
+          <div class="post-row-info">
+
+            {% if post.categories %}
+              <span class="post-row-category">
+                {{ post.categories | first }}
+              </span>
+            {% endif %}
+
+            <h2>{{ post.title }}</h2>
+
+            {% if post.description %}
+              <p>{{ post.description }}</p>
+            {% endif %}
+
+            <div class="post-row-meta">
+              {{ post.date | date: "%Y.%m.%d" }}
+            </div>
+
+          </div>
+
+          <span class="post-arrow">
+            →
+          </span>
+
+        </a>
+
+      {% endfor %}
+
+    </div>
 
   </section>
 
 </main>
-
-<footer>
-  <strong>{{ site.title }}</strong>
-  <p>{{ site.description }}</p>
-</footer>
-
-<script>
-const buttons = document.querySelectorAll(".category");
-const cards = document.querySelectorAll(".article-card");
-
-buttons.forEach(button => {
-  button.addEventListener("click", () => {
-
-    buttons.forEach(item => item.classList.remove("active"));
-    button.classList.add("active");
-
-    const category = button.dataset.category;
-
-    cards.forEach(card => {
-      const categories = card.dataset.category.split(" ");
-
-      card.style.display =
-        category === "all" || categories.includes(category)
-          ? ""
-          : "none";
-    });
-  });
-});
-
-
-const themeButton = document.getElementById("theme-toggle");
-
-if (localStorage.getItem("theme") === "dark") {
-  document.documentElement.classList.add("dark");
-  themeButton.textContent = "☀";
-}
-
-themeButton.addEventListener("click", () => {
-
-  document.documentElement.classList.toggle("dark");
-
-  const dark =
-    document.documentElement.classList.contains("dark");
-
-  localStorage.setItem(
-    "theme",
-    dark ? "dark" : "light"
-  );
-
-  themeButton.textContent = dark ? "☀" : "☾";
-});
-</script>
