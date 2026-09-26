@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    {% if page.title %}
+      {{ page.title }} · {{ site.title }}
+    {% else %}
+      {{ site.title }}
+    {% endif %}
+  </title>
+
+  <meta name="description" content="{{ page.description | default: site.description }}">
+
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+
+<body>
+
+<header class="header">
+  <a href="{{ '/' | relative_url }}" class="brand">
+    {{ site.title }}
+  </a>
+
+  <div class="header-actions">
+    <button id="theme-toggle" aria-label="다크모드">
+      ☼
+    </button>
+
+    <button id="menu-toggle" aria-label="메뉴">
+      ☰
+    </button>
+  </div>
+</header>
+
+{{ content }}
+
+<footer class="footer">
+  <div class="footer-inner">
+    <strong>{{ site.title }}</strong>
+    <p>{{ site.description }}</p>
+  </div>
+</footer>
+
+<script>
+const themeButton = document.getElementById("theme-toggle");
+
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.classList.add("dark");
+  themeButton.textContent = "☀";
+}
+
+themeButton.addEventListener("click", () => {
+  document.documentElement.classList.toggle("dark");
+
+  const dark = document.documentElement.classList.contains("dark");
+
+  localStorage.setItem("theme", dark ? "dark" : "light");
+  themeButton.textContent = dark ? "☀" : "☼";
+});
+</script>
+
+</body>
+</html>
