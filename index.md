@@ -4,7 +4,7 @@ layout: default
 
 <h1>{{ site.title }}</h1>
 
-<p>인식된 글 개수: {{ site.posts.size }}</p>
+<p>작성 글 수: {{ site.posts.size }}</p>
 
 {% for post in site.posts %}
   <p>
