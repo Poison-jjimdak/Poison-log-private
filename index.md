@@ -2,40 +2,39 @@
 layout: default
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/style.scss' | relative_url }}">
 
-<header class="site-header-custom">
-  <div>
-    <a class="site-title-custom" href="{{ '/' | relative_url }}">
-      {{ site.title }}
-    </a>
-    <p>{{ site.description }}</p>
+<header class="topbar">
+  <a href="{{ '/' | relative_url }}" class="logo">
+    {{ site.title }}
+  </a>
+
+  <div class="top-actions">
+    <button id="theme-toggle" aria-label="다크모드">☾</button>
+    <button aria-label="메뉴">☰</button>
   </div>
-
-  <button id="theme-toggle" class="theme-button">☾</button>
 </header>
 
-<main class="home-container">
+<main>
 
   <section class="hero">
-    <span class="eyebrow">TECH BLOG</span>
     <h1>최신 아티클</h1>
-    <p>직접 해보고, 분석하고, 기록한 기술 이야기.</p>
   </section>
 
-  <nav class="category-nav">
-    <button class="category-button active" data-category="all">
-      전체
-    </button>
+  <nav class="categories">
+    <button class="category active" data-category="all">전체</button>
 
     {% for category in site.categories %}
-      <button class="category-button" data-category="{{ category[0] | escape }}">
+      <button
+        class="category"
+        data-category="{{ category[0] }}"
+      >
         {{ category[0] }}
       </button>
     {% endfor %}
   </nav>
 
-  <section class="post-grid">
+  <section class="articles">
 
     {% for post in site.posts %}
 
@@ -46,27 +45,25 @@ layout: default
       {% endif %}
 
       <article
-        class="post-card"
+        class="article-card"
         data-category="{% for category in post.categories %}{{ category }} {% endfor %}"
       >
 
         {% if post.thumbnail %}
-          <a href="{{ post.url | relative_url }}" class="thumbnail-wrapper">
+          <a href="{{ post.url | relative_url }}" class="cover">
             <img
               src="{{ post.thumbnail | relative_url }}"
-              alt=""
-              class="post-thumbnail"
-              loading="lazy"
+              alt="{{ post.title }}"
             >
           </a>
         {% endif %}
 
-        <div class="post-card-content">
+        <div class="article-info">
 
           {% if post.categories %}
-            <div class="post-category">
+            <span class="article-category">
               {{ post.categories | first }}
-            </div>
+            </span>
           {% endif %}
 
           <h2>
@@ -76,22 +73,23 @@ layout: default
           </h2>
 
           {% if post.description %}
-            <p class="post-description">
-              {{ post.description }}
-            </p>
+            <p>{{ post.description }}</p>
           {% else %}
-            <p class="post-description">
-              {{ post.excerpt | strip_html | strip_newlines | truncate: 120 }}
+            <p>
+              {{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}
             </p>
           {% endif %}
 
-          <div class="post-meta">
-            <span>{{ post.date | date: "%Y.%m.%d" }}</span>
-            <span>·</span>
-            <span>{{ minutes }} min read</span>
+          <div class="meta">
+            <span>{{ site.author | default: "주현" }}</span>
+            <span>•</span>
+            <span>{{ post.date | date: "%Y년 %-m월 %-d일" }}</span>
+            <span>•</span>
+            <span>{{ minutes }}분 소요</span>
           </div>
 
         </div>
+
       </article>
 
     {% endfor %}
@@ -100,39 +98,54 @@ layout: default
 
 </main>
 
+<footer>
+  <strong>{{ site.title }}</strong>
+  <p>{{ site.description }}</p>
+</footer>
+
 <script>
-const buttons = document.querySelectorAll(".category-button");
-const cards = document.querySelectorAll(".post-card");
+const buttons = document.querySelectorAll(".category");
+const cards = document.querySelectorAll(".article-card");
 
 buttons.forEach(button => {
   button.addEventListener("click", () => {
 
-    buttons.forEach(b => b.classList.remove("active"));
+    buttons.forEach(item => item.classList.remove("active"));
     button.classList.add("active");
 
     const category = button.dataset.category;
 
     cards.forEach(card => {
-      if (
-        category === "all" ||
-        card.dataset.category.split(" ").includes(category)
-      ) {
-        card.style.display = "";
-      } else {
-        card.style.display = "none";
-      }
+      const categories = card.dataset.category.split(" ");
+
+      card.style.display =
+        category === "all" || categories.includes(category)
+          ? ""
+          : "none";
     });
   });
 });
 
+
 const themeButton = document.getElementById("theme-toggle");
 
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.classList.add("dark");
+  themeButton.textContent = "☀";
+}
+
 themeButton.addEventListener("click", () => {
+
   document.documentElement.classList.toggle("dark");
 
-  themeButton.textContent =
-    document.documentElement.classList.contains("dark")
-      ? "☀"
-      : "☾";
+  const dark =
+    document.documentElement.classList.contains("dark");
+
+  localStorage.setItem(
+    "theme",
+    dark ? "dark" : "light"
+  );
+
+  themeButton.textContent = dark ? "☀" : "☾";
 });
 </script>
