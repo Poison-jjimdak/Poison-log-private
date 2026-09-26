@@ -1,3 +1,5 @@
 title: 블로그 테스트
 description: 대충설명
 theme: minima
+
+future: true
