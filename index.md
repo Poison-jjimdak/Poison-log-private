@@ -13,7 +13,6 @@ layout: default
       <a href="{{ post.url | relative_url }}">
         {{ post.title }}
       </a>
-      <p>{{ post.excerpt | strip_html | truncate: 150 }}</p>
     </li>
   {% endfor %}
 </ul>
