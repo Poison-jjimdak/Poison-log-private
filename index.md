@@ -12,6 +12,9 @@ layout: default
 {% endif %}
 {% endfor %}
 
+
+<h1>고정된 게시글</h1>
+
 {% for post in site.posts %}
 <article class="post-card">
   <a href="{{ post.url | relative_url }}">
