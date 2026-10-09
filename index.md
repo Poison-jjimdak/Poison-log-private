@@ -12,6 +12,16 @@ layout: default
 {% endif %}
 {% endfor %}
 
+{% for post in site.posts %}
+<article class="post-card">
+  <a href="{{ post.url | relative_url }}">
+    <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}">
+    <h2>{{ post.title }}</h2>
+  </a>
+  <p>{{ post.date | date: "%Y.%m.%d" }}</p>
+  <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
+</article>
+{% endfor %}
 <hr>
 
 <h1>최신 게시글</h1>
