@@ -8,9 +8,14 @@
   <link rel="stylesheet" href="{{ '/assets/css/colors.css' | relative_url }}">
 </head>
 <body>
-  <header class="site-header">
-    <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-  </header>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-title" href="{{ '/' | relative_url }}">
+      Poison-log
+    </a>
+  </div>
+</header>
+
 
   <main>
     {{ content }}
