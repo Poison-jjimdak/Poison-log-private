@@ -245,3 +245,14 @@
   }
 }
 
+
+.footer-socials a {
+  text-decoration: none;
+}
+
+.footer-socials a::before,
+.footer-socials a::after {
+  content: none;
+}
+
+
