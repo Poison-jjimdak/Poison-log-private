@@ -103,3 +103,25 @@
     padding: 12px;
   }
 }
+
+/* 최신 게시글만 2열 배치 */
+.latest-posts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+/* 그리드 안에서 카드가 칸 너비에 맞도록 */
+.latest-posts .post-card {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+/* 작은 화면에서는 다시 1열 */
+@media (max-width: 600px) {
+  .latest-posts {
+    grid-template-columns: 1fr;
+  }
+}
