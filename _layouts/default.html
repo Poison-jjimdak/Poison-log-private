@@ -3,34 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>{{ page.title }} | {{ site.title }}</title>
+
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/colors.css' | relative_url }}">
-</head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="site-title" href="{{ '/' | relative_url }}">
-      Poison-log
-    </a>
-  </div>
-</header>
 
+  <script src="{{ '/assets/js/pinned-carousel.js' | relative_url }}" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-title" href="{{ '/' | relative_url }}">
+        Poison-log
+      </a>
+    </div>
+  </header>
 
   <main>
     {{ content }}
   </main>
 
-<footer class="site-footer">
-  <div class="footer-socials">
-    <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-      <span class="youtube-icon" role="img" aria-label="YouTube"></span>
-    </a>
+  <footer class="site-footer">
+    <div class="footer-socials">
+      <a
+        href="https://www.youtube.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="YouTube"
+      >
+        <span class="youtube-icon" role="img" aria-label="YouTube"></span>
+      </a>
 
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-      <span class="instagram-icon" role="img" aria-label="Instagram"></span>
-    </a>
-  </div>
-</footer>
+      <a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+      >
+        <span class="instagram-icon" role="img" aria-label="Instagram"></span>
+      </a>
+    </div>
+  </footer>
 </body>
 </html>
