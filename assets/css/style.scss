@@ -164,16 +164,27 @@
   display: inline-block;
   width: 24px;
   height: 24px;
+  flex-shrink: 0;
+
   background-color: #E1306C;
-  -webkit-mask: url("/assets/icons/instagram_icon_ver2.svg") center / contain no-repeat;
-  mask: url("/assets/icons/instagram_icon_ver2.svg") center / contain no-repeat;
+
+  -webkit-mask: url("{{ '/assets/icons/instagram_icon_ver2.svg' | relative_url }}")
+    center / contain no-repeat;
+  mask: url("{{ '/assets/icons/instagram_icon_ver2.svg' | relative_url }}")
+    center / contain no-repeat;
 }
 
 .youtube-icon {
   display: inline-block;
   width: 24px;
   height: 24px;
+  flex-shrink: 0;
+
   background-color: #FF0000;
-  -webkit-mask: url("/assets/icons/youtube_icon_ver2.svg") center / contain no-repeat;
-  mask: url("/assets/icons/youtube_icon_ver2.svg") center / contain no-repeat;
+
+  -webkit-mask: url("{{ '/assets/icons/youtube_icon_ver2.svg' | relative_url }}")
+    center / contain no-repeat;
+  mask: url("{{ '/assets/icons/youtube_icon_ver2.svg' | relative_url }}")
+    center / contain no-repeat;
 }
+
