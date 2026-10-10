@@ -5,31 +5,35 @@ layout: default
 <h1>고정된 게시글</h1>
 
 <div class="pinned-posts">
-{% for post in site.posts %}
-{% if post.pinned == "t" %}
-      <article class="post-card">
-        <div class="post-info">
-          <h2>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </h2>
-          <p>{{ post.date | date: "%Y.%m.%d" }}</p>
-          <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
-        </div>
-      <a href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
-      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}">
-        </a>
-      </article>
-{% endif %}
-{% endfor %}
-</div>
+  {% assign pinned_posts = site.posts | where: "pinned", "t" %}
 
-<nav class="pinned-pagination" aria-label="고정 게시글 페이지">
-  <button class="pinned-page" type="button" disabled aria-label="이전 페이지">‹</button>
-  <button class="pinned-page is-active" type="button" aria-current="page">1</button>
-  <button class="pinned-page" type="button">2</button>
-  <button class="pinned-page" type="button">3</button>
-  <button class="pinned-page" type="button" aria-label="다음 페이지">›</button>
-</nav>
+  {% for post in pinned_posts %}
+    <article class="post-card">
+      <div class="post-info">
+        <h2>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h2>
+        <p>{{ post.date | date: "%Y.%m.%d" }}</p>
+        <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
+      </div>
+      <a href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
+        <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}">
+      </a>
+      {% if forloop.first %}
+        <nav class="pinned-pagination" aria-label="고정 게시글 페이지">
+          {% for i in (1..5) %}
+            <button
+              class="pinned-page{% if forloop.first %} is-active{% endif %}"
+              type="button"
+              aria-label="{{ i }}페이지"
+              {% if forloop.first %}aria-current="page"{% endif %}
+            ></button>
+          {% endfor %}
+        </nav>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
 
 <hr>
 
@@ -45,10 +49,9 @@ layout: default
         <p>{{ post.date | date: "%Y.%m.%d" }}</p>
         <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
       </div>
-<a href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
+ <a href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
         <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}">
       </a>
-  </article>
+    </article>
   {% endfor %}
 </div>
-
