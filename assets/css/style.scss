@@ -188,3 +188,53 @@
     center / contain no-repeat;
 }
 
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  width: 100%;
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.header-inner {
+  max-width: 1100px;
+  min-height: 64px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+}
+
+.site-title {
+  color: #000;
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: 650;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+
+  transition: opacity 0.2s ease;
+}
+
+.site-title:hover {
+  opacity: 0.65;
+}
+
+@media (max-width: 600px) {
+  .header-inner {
+    min-height: 56px;
+    padding: 0 18px;
+  }
+
+  .site-title {
+    font-size: 20px;
+  }
+}
+
