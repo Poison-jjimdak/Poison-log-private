@@ -31,13 +31,18 @@ layout: default
 <div class="latest-posts">
 {% for post in site.posts %}
   <article class="post-card">
-    <a href="{{ post.url | relative_url }}">
-      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}">
-      <h2>{{ post.title }}</h2>
-    </a>
+  <div class="post-info">
+    <h2>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </h2>
     <p>{{ post.date | date: "%Y.%m.%d" }}</p>
     <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
-  </article>
+  </div>
+
+  <a href="{{ post.url | relative_url }}" aria-label="{{ post.title }}">
+    <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}">
+  </a>
+</article>
 {% endfor %}
 </div>
 
