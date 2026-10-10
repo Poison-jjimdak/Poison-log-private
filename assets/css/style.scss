@@ -743,3 +743,115 @@
     bottom: 10px;
   }
 }
+
+/* 고정 게시글: 글 왼쪽, 이미지 오른쪽 */
+.pinned-posts .post-card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+/* 왼쪽 텍스트 영역 */
+.pinned-posts .post-card .post-info {
+  order: 1;
+  flex: 2 1 0;
+  min-width: 0;
+  padding: 24px 20px 48px 24px;
+}
+
+/* 오른쪽 이미지 영역 */
+.pinned-posts .post-card > a:last-child {
+  order: 2;
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  align-self: stretch;
+  overflow: hidden;
+}
+
+.pinned-posts .post-card > a:last-child img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+}
+
+/* 왼쪽 하단 페이지 표시기 */
+.pinned-posts .pinned-pagination {
+  position: absolute;
+  left: 24px;
+  bottom: 16px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+}
+
+/* 기본 점 */
+.pinned-posts .pinned-pagination .pinned-page {
+  appearance: none;
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-text, #888);
+  opacity: 0.3;
+  cursor: pointer;
+  transition: width 0.25s ease, opacity 0.25s ease;
+}
+
+/* 활성 페이지는 길게 */
+.pinned-posts .pinned-pagination .pinned-page.is-active {
+  flex-basis: 22px;
+  width: 22px;
+  height: 6px;
+  opacity: 1;
+}
+
+.pinned-posts .pinned-pagination .pinned-page:focus-visible {
+  outline: 2px solid var(--color-accent, #888);
+  outline-offset: 4px;
+}
+
+/* 모바일에서도 글 왼쪽, 이미지 오른쪽 유지 */
+@media (max-width: 800px) {
+  .pinned-posts .post-card {
+    min-height: 220px;
+  }
+
+  .pinned-posts .post-card .post-info {
+    padding: 18px 12px 42px 16px;
+  }
+
+  .pinned-posts .post-card > a:last-child img {
+    min-height: 220px;
+  }
+
+  .pinned-posts .pinned-pagination {
+    left: 16px;
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .pinned-posts .post-card .post-info {
+    padding-left: 12px;
+  }
+
+  .pinned-posts .pinned-pagination {
+    left: 12px;
+    bottom: 10px;
+  }
+}
