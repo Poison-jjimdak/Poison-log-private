@@ -162,3 +162,12 @@
     display: none;
   }
 }
+
+.post-card > a:last-child {
+  flex: 0 0 180px;
+  width: 180px;
+  height: 135px;
+  align-self: center;
+  overflow: hidden;
+  line-height: 0;
+}
