@@ -17,8 +17,8 @@
   flex-direction: row;
   align-items: stretch;
   width: 50%;
-  min-height: 180px;
   box-sizing: border-box;
+  min-height: 180px;
   margin: 0 0 8px;
   padding: 0;
   gap: 0;
@@ -30,7 +30,7 @@
   border-radius: 16px;
 }
 
-/* 왼쪽 텍스트 */
+/* 왼쪽 텍스트 영역 */
 .post-card .post-info {
   order: 1;
   flex: 1 1 0;
@@ -39,6 +39,7 @@
   overflow-wrap: anywhere;
 }
 
+/* 제목 */
 .post-card h2 {
   margin: 0 0 10px;
   font-size: 1.15rem;
@@ -50,20 +51,21 @@
   text-decoration: none;
 }
 
+/* 날짜 및 요약 */
 .post-card p {
   margin: 8px 0;
   color: var(--color-text);
   line-height: 1.6;
 }
 
-/* PC 이미지: 오른쪽 4:3 */
+/* PC 이미지: 카드 오른쪽을 위아래로 꽉 채우기 */
 .post-card > a:last-child {
   order: 2;
   display: block;
   flex: 0 0 180px;
   width: 180px;
-  height: 135px;
-  align-self: center;
+  align-self: stretch;
+  min-height: 0;
   overflow: hidden;
   line-height: 0;
 }
@@ -75,12 +77,12 @@
   object-fit: cover;
 }
 
-/* 고정 게시글 */
+/* 고정 게시글 강조 */
 .pinned-card {
   border: 2px solid var(--color-accent);
 }
 
-/* 최신 게시글: 넓은 화면에서 2열 */
+/* 최신 게시글: PC에서 2열 */
 .latest-posts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -106,7 +108,7 @@
     min-height: 0;
   }
 
-  /* 최신 게시글은 이미지가 위쪽 */
+  /* 최신 게시글은 한 열로 */
   .latest-posts {
     grid-template-columns: 1fr;
   }
@@ -115,6 +117,7 @@
     flex-direction: column;
   }
 
+  /* 최신 게시글 이미지: 위쪽 4:3 */
   .latest-posts .post-card > a:last-child {
     order: 0;
     flex: none;
@@ -124,6 +127,13 @@
     align-self: stretch;
   }
 
+  .latest-posts .post-card > a:last-child img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* 제목과 날짜 */
   .latest-posts .post-card .post-info {
     order: 1;
     padding: 12px 14px;
@@ -134,13 +144,18 @@
     display: none;
   }
 
-  .pinned-posts .post-card > a:last-child {
-    flex-basis: 120px;
-    width: 120px;
-    height: 90px;
+  /* 고정 게시글은 가로형 유지 */
+  .pinned-posts .post-card {
+    flex-direction: row;
   }
 
-  .post-card .post-info {
+  .pinned-posts .post-card > a:last-child {
+    flex: 0 0 120px;
+    width: 120px;
+    align-self: stretch;
+  }
+
+  .pinned-posts .post-card .post-info {
     padding: 12px;
   }
 }
