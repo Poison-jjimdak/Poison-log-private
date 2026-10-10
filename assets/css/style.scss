@@ -127,7 +127,7 @@
 }
 
 /* 모바일 게시글 카드 */
-@media (max-width: 1917px) {
+@media (max-width: 600px) {
   .latest-posts {
     grid-template-columns: 1fr;
   }
