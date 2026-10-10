@@ -1,25 +1,53 @@
+
 ---
 ---
 
-/* 게시글 목록 */
+/* =========================
+   게시글 목록 공통
+========================= */
+
 .pinned-posts,
 .latest-posts {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 0 24px;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-/* 게시글 카드 */
+/* 고정 게시글 목록 */
+.pinned-posts {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+/* 최신 게시글: PC 2열 */
+.latest-posts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+
+/* =========================
+   게시글 카드
+========================= */
+
 .post-card {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  width: 50%;
-  box-sizing: border-box;
+
+  width: 100%;
+  min-width: 0;
   min-height: 180px;
-  margin: 0 0 8px;
+  box-sizing: border-box;
+
+  margin: 0;
   padding: 0;
   gap: 0;
   overflow: hidden;
@@ -30,7 +58,7 @@
   border-radius: 16px;
 }
 
-/* 왼쪽 텍스트 영역 */
+/* 왼쪽 텍스트 */
 .post-card .post-info {
   order: 1;
   flex: 1 1 0;
@@ -58,7 +86,7 @@
   line-height: 1.6;
 }
 
-/* PC 이미지: 카드 오른쪽을 위아래로 꽉 채우기 */
+/* PC 이미지: 오른쪽 */
 .post-card > a:last-child {
   order: 2;
   display: block;
@@ -82,90 +110,15 @@
   border: 2px solid var(--color-accent);
 }
 
-/* 최신 게시글: PC에서 2열 */
-.latest-posts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 16px;
-}
-
-.latest-posts .post-card {
-  width: 100%;
-  min-width: 0;
-  margin: 0;
-}
-
-/* 태블릿 및 모바일 */
-@media (max-width: 800px) {
-  .pinned-posts,
-  .latest-posts {
-    padding: 0 16px;
-  }
-
-  .post-card {
-    width: 100%;
-    min-height: 0;
-  }
-
-  /* 최신 게시글은 한 열로 */
-  .latest-posts {
-    grid-template-columns: 1fr;
-  }
-
-  .latest-posts .post-card {
-    flex-direction: column;
-  }
-
-  /* 최신 게시글 이미지: 위쪽 4:3 */
-  .latest-posts .post-card > a:last-child {
-    order: 0;
-    flex: none;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    align-self: stretch;
-  }
-
-  .latest-posts .post-card > a:last-child img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* 제목과 날짜 */
-  .latest-posts .post-card .post-info {
-    order: 1;
-    padding: 12px 14px;
-  }
-
-  /* 미리보기 숨기기 */
-  .latest-posts .post-card .post-info p:not(:first-of-type) {
-    display: none;
-  }
-
-  /* 고정 게시글은 가로형 유지 */
-  .pinned-posts .post-card {
-    flex-direction: row;
-  }
-
-  .pinned-posts .post-card > a:last-child {
-    flex: 0 0 120px;
-    width: 120px;
-    align-self: stretch;
-  }
-
-  .pinned-posts .post-card .post-info {
-    padding: 12px;
-  }
-}
+/* =========================
+   아이콘
+========================= */
 
 .instagram-icon {
   display: inline-block;
+  flex-shrink: 0;
   width: 24px;
   height: 24px;
-  flex-shrink: 0;
-
   background-color: #E1306C;
 
   -webkit-mask: url("{{ '/assets/icons/instagram_icon_ver2.svg' | relative_url }}")
@@ -176,10 +129,9 @@
 
 .youtube-icon {
   display: inline-block;
+  flex-shrink: 0;
   width: 24px;
   height: 24px;
-  flex-shrink: 0;
-
   background-color: #FF0000;
 
   -webkit-mask: url("{{ '/assets/icons/youtube_icon_ver2.svg' | relative_url }}")
@@ -188,13 +140,16 @@
     center / contain no-repeat;
 }
 
+/* =========================
+   상단바
+========================= */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
-
   width: 100%;
+
   background: rgba(255, 255, 255, 0.72);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
@@ -203,20 +158,16 @@
 }
 
 .header-inner {
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1200px;
   min-height: 64px;
+  box-sizing: border-box;
+
   margin: 0 auto;
-  padding: 0 100px;
+  padding: 0 40px;
 
   display: flex;
   align-items: center;
-}
-
-@media (max-width: 600px) {
-  .header-inner {
-    min-height: 56px;
-    padding: 0 18px;
-  }
 }
 
 .site-title {
@@ -226,7 +177,6 @@
   font-weight: 650;
   letter-spacing: -0.6px;
   line-height: 1.2;
-
   transition: opacity 0.2s ease;
 }
 
@@ -234,30 +184,13 @@
   opacity: 0.65;
 }
 
-@media (max-width: 600px) {
-  .header-inner {
-    min-height: 56px;
-    padding: 0 18px;
-  }
-
-  .site-title {
-    font-size: 20px;
-  }
-}
-
-
-.footer-socials a {
-  text-decoration: none;
-}
-
-.footer-socials a::before,
-.footer-socials a::after {
-  content: none;
-}
-
+/* =========================
+   하단바
+========================= */
 
 .site-footer {
   width: 100%;
+  box-sizing: border-box;
   margin-top: 64px;
   padding: 28px 0;
 
@@ -272,7 +205,8 @@
   flex-wrap: wrap;
   gap: 24px;
 
-  max-width: 1100px;
+  max-width: 1200px;
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 0 40px;
 }
@@ -290,19 +224,102 @@
   transition: opacity 0.2s ease;
 }
 
+.footer-socials a::before,
+.footer-socials a::after {
+  content: none;
+}
+
 .footer-socials a:hover {
   opacity: 0.65;
 }
 
-@media (max-width: 600px) {
-  .site-footer {
-    margin-top: 48px;
-    padding: 24px 0;
+/* =========================
+   태블릿 및 모바일
+========================= */
+
+@media (max-width: 800px) {
+  .pinned-posts,
+  .latest-posts {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .latest-posts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  /* 최신 게시글은 세로형 카드 */
+  .latest-posts .post-card {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .latest-posts .post-card > a:last-child {
+    order: 0;
+    flex: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    align-self: stretch;
+  }
+
+  .latest-posts .post-card > a:last-child img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .latest-posts .post-card .post-info {
+    order: 1;
+    padding: 12px 14px;
+  }
+
+  /* 미리보기 일부 숨기기 */
+  .latest-posts .post-card .post-info p:not(:first-of-type) {
+    display: none;
+  }
+
+  /* 고정 게시글은 가로형 유지 */
+  .pinned-posts .post-card {
+    flex-direction: row;
+    min-height: 0;
+  }
+
+  .pinned-posts .post-card > a:last-child {
+    flex: 0 0 120px;
+    width: 120px;
+    align-self: stretch;
+  }
+
+  .pinned-posts .post-card .post-info {
+    padding: 12px;
+  }
+
+  .header-inner {
+    min-height: 56px;
+    padding: 0 20px;
+  }
+
+  .site-title {
+    font-size: 20px;
   }
 
   .footer-socials {
-    gap: 20px;
-    padding: 0 18px;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .pinned-posts,
+  .latest-posts {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .pinned-posts .post-card > a:last-child {
+    flex-basis: 100px;
+    width: 100px;
   }
 }
 
