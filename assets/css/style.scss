@@ -1,79 +1,105 @@
 ---
 ---
 
-.post-card {
-  overflow: hidden;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 16px;
+/* 게시글 목록 */
+.pinned-posts,
+.latest-posts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 24px;
 }
 
 /* 게시글 카드 */
 .post-card {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   align-items: stretch;
-  gap: 20px;
+  width: 50%;
+  box-sizing: border-box;
+  min-height: 180px;
+  margin: 0 0 8px;
   padding: 0;
+  gap: 0;
+
   overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
   background-color: var(--color-surface);
   color: var(--color-text);
-  min-height: 180px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+}
+
+/* 왼쪽 텍스트 영역 */
+.post-card .post-info {
+  order: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 18px;
+  overflow-wrap: anywhere;
+}
+
+/* 제목 */
+.post-card h2 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+.post-card h2 a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* 날짜 및 요약 */
+.post-card p {
+  margin: 8px 0;
+  color: var(--color-text);
+  line-height: 1.6;
 }
 
 /* 오른쪽 정사각형 이미지 */
-.post-card > a {
+.post-card > a:last-child {
+  order: 2;
+  display: block;
   flex: 0 0 180px;
   width: 180px;
   aspect-ratio: 1 / 1;
-  display: block;
-  position: relative;
+  align-self: flex-start;
   overflow: hidden;
 }
 
-/* 이미지 꽉 채우기 + 잘라내기 */
-.post-card > a img {
+/* 이미지 꽉 채우기 */
+.post-card > a:last-child img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* 왼쪽 텍스트 영역 */
-.post-card > .post-info {
-  flex: 1;
-  min-width: 0;
-  padding: 18px 0 18px 20px;
+/* 고정 게시글 강조 */
+.pinned-card {
+  border: 2px solid var(--color-accent);
 }
 
-/* 링크 안에 제목이 있다면 기본 여백 조정 */
-.post-card h2 {
-  margin: 0 0 10px;
-  color: var(--color-text);
-}
+/* 모바일 화면 */
+@media (max-width: 800px) {
+  .pinned-posts,
+  .latest-posts {
+    padding: 0 16px;
+  }
 
-.post-card p {
-  margin: 8px 0;
-  color: var(--color-text);
-}
-
-/* 모바일 */
-@media (max-width: 520px) {
   .post-card {
-    gap: 12px;
+    width: 100%;
     min-height: 120px;
   }
 
-  .post-card > a {
+  .post-card > a:last-child {
     flex-basis: 120px;
     width: 120px;
   }
 
-  .post-card > .post-info {
-    padding: 12px 0 12px 12px;
+  .post-card .post-info {
+    padding: 12px;
   }
 }
