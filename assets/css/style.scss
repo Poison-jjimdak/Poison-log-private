@@ -486,3 +486,65 @@
     bottom: 10px;
   }
 }
+
+/* 캐러셀: 한 장씩 표시 */
+.pinned-posts .pinned-slide[hidden] {
+  display: none !important;
+}
+
+.pinned-posts .pinned-slide {
+  width: 100%;
+  touch-action: pan-y;
+}
+
+/* 페이지 표시기: 카드 아래 가운데 */
+.pinned-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+
+  width: 100%;
+  margin: 16px auto 28px;
+  padding: 0;
+}
+
+/* 기본 점 */
+.pinned-pagination .pinned-page {
+  appearance: none;
+  flex: 0 0 6px;
+
+  width: 6px;
+  min-width: 0;
+  height: 6px;
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-text, #888);
+  opacity: 0.3;
+
+  cursor: pointer;
+  transition:
+    flex-basis 0.25s ease,
+    width 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* 활성 페이지 */
+.pinned-pagination .pinned-page.is-active {
+  flex-basis: 22px;
+  width: 22px;
+  opacity: 1;
+}
+
+.pinned-pagination .pinned-page:focus-visible {
+  outline: 2px solid var(--color-accent, #888);
+  outline-offset: 4px;
+}
+
+/* 게시글이 하나뿐이면 표시기 숨김 */
+.pinned-pagination:has(.pinned-page:only-child) {
+  display: none;
+}
